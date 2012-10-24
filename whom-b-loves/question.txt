@@ -1,0 +1,11 @@
+使用する予定の関数
+Map.lookup（またはListのlookupでも）
+List.find（あるいはIntMapのlookup）
+List.findIndex
+ListのsafeIndex（Data.listにはなかったけど。。。）
+Data.Sequenceもチェック！
+
+AさんとBさんはいわゆる恋バナをしていました。
+一通り盛り上がったところで、
+「ねぇ、ところでBは誰が好きなの？」 と尋ねたところ、
+「
