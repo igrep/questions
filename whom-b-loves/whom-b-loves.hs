@@ -88,6 +88,7 @@ girlsMotoKare = Map.fromList [
   ,("まつこ", "じょん")
   ,("ようこ", "ようた")
   ,("よしこ", "みつを")
+  ,("じょんこ", "きよし")
   ,("たかこ", "じゅんいちろう")
   ,("さえ", "たかし")]
 
@@ -110,7 +111,7 @@ lookupAne room boyAge = do
 
 -- general function for debugging
 dEBUG :: Bool
-dEBUG = True
+dEBUG = False
 inspect :: Show a => String -> a -> a
 inspect msg x =
   if dEBUG
@@ -122,14 +123,15 @@ findWhomBLoves :: Maybe String
 findWhomBLoves = do
   danshi180 <- inspect "danshi180" $ IntMap.lookup 180 danshiHeights
   danshiNumber <- inspect "danshiNumber" $ Map.lookup danshi180 danshiByNumber
-  (_boy, age) <- inspect "(_boy, age)" $ join $ hoge22Boys `monadicIndex` (danshiNumber - 1)
-  ane <- inspect "ane" $ lookupAne danshiNumber age
+  let roomNumber = danshiNumber - 1
+  (_boy, age) <- inspect "(_boy, age)" $ join $ hoge22Boys `monadicIndex` roomNumber
+  ane <- inspect "ane" $ lookupAne roomNumber age
   friend <- inspect "friend" $ Map.lookup ane hoge22Friends
   Map.lookup friend girlsMotoKare
 
 printResult :: Maybe String -> IO()
 printResult Nothing = putStrLn "Bの好きな男は結局分かりませんでした！ダメじゃん！"
-printResult (Just s) = putStrLn s
+printResult (Just s) = putStrLn $ "Bの好きな男は" ++ s ++ "でした！"
 
 main :: IO ()
 main = printResult findWhomBLoves
