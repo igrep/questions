@@ -108,18 +108,18 @@ lookupAne room boyAge = do
     then return aneName
     else Nothing
 
--- for debugging
-monadicTrace :: Monad m => String -> a -> m a
-monadicTrace s x = return $ trace s x
+-- general function for debugging
+inspect :: Show a => String -> a -> a
+inspect msg x = trace ( msg ++ ": " ++ show x ) x
 --
 
 findWhomBLoves :: Maybe String
 findWhomBLoves = do
-  danshi180 <- trace "danshi180" $ IntMap.lookup 180 danshiHeights
-  danshiNumber <- trace "danshiNumber" $ Map.lookup danshi180 danshiByNumber
-  (_boy, age) <- trace "(_boy, age)" $ join $ hoge22Boys `monadicIndex` (danshiNumber - 1)
-  ane <- trace "ane" $ lookupAne danshiNumber age
-  friend <- trace "friend" $ Map.lookup ane hoge22Friends
+  danshi180 <- inspect "danshi180" $ IntMap.lookup 180 danshiHeights
+  danshiNumber <- inspect "danshiNumber" $ Map.lookup danshi180 danshiByNumber
+  (_boy, age) <- inspect "(_boy, age)" $ join $ hoge22Boys `monadicIndex` (danshiNumber - 1)
+  ane <- inspect "ane" $ lookupAne danshiNumber age
+  friend <- inspect "friend" $ Map.lookup ane hoge22Friends
   Map.lookup friend girlsMotoKare
 
 printResult :: Maybe String -> IO()
