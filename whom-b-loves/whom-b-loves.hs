@@ -109,8 +109,13 @@ lookupAne room boyAge = do
     else Nothing
 
 -- general function for debugging
+dEBUG :: Bool
+dEBUG = True
 inspect :: Show a => String -> a -> a
-inspect msg x = trace ( msg ++ ": " ++ show x ) x
+inspect msg x =
+  if dEBUG
+    then trace ( msg ++ ": " ++ show x ) x
+    else x
 --
 
 findWhomBLoves :: Maybe String
