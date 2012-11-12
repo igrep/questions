@@ -115,17 +115,11 @@ monadicTrace s x = return $ trace s x
 
 findWhomBLoves :: Maybe String
 findWhomBLoves = do
-  danshi180 <- IntMap.lookup 180 danshiHeights
-  monadicTrace "danshi180" danshi180
-  danshiNumber <- Map.lookup danshi180 danshiByNumber
-  monadicTrace "danshiNumber" danshiNumber
-  (boy, age) <- join $ hoge22Boys `monadicIndex` (danshiNumber - 1)
-  monadicTrace "boy" boy
-  monadicTrace "age" age
-  ane <- lookupAne danshiNumber age
-  monadicTrace "ane" ane
-  friend <- Map.lookup ane hoge22Friends
-  monadicTrace "friend" friend
+  danshi180 <- trace "danshi180" $ IntMap.lookup 180 danshiHeights
+  danshiNumber <- trace "danshiNumber" $ Map.lookup danshi180 danshiByNumber
+  (_boy, age) <- trace "(_boy, age)" $ join $ hoge22Boys `monadicIndex` (danshiNumber - 1)
+  ane <- trace "ane" $ lookupAne danshiNumber age
+  friend <- trace "friend" $ Map.lookup ane hoge22Friends
   Map.lookup friend girlsMotoKare
 
 printResult :: Maybe String -> IO()
