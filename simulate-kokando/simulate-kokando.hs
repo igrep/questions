@@ -8,19 +8,21 @@ type Character = (Name, Kokando)
 type SaveData = [Character]
 initialSaveData :: SaveData
 initialSaveData =
-  [("", 0)
-  ,("", 0)
-  ,("", 0)
-  ,("", 0)]
+  [("hoge", 0)
+  ,("foo", 0)
+  ,("bar", 0)
+  ,("fuga", 0)]
 
 type Situation = Choice -> SaveData -> SaveData
 situA :: Situation
+
 situB :: Situation
 situC :: Situation
 situD :: Situation
 situE :: Situation
 
-type ChangeKokando = Choice -> Character -> Character
+changeKokando :: Character -> Int -> Character
+changeKokando (name, kokando) i = (name, kokandom + i)
 
 situations :: [Situation]
 situations = [situA, situB, situC, situD, situE]
